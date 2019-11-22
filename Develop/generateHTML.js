@@ -25,7 +25,7 @@ const colors = {
   }
 };
 
-function generateHTML(data) {
+function generateHTML(data, response) {
   return `<!DOCTYPE html>
 <html lang="en">
    <head>
@@ -170,7 +170,52 @@ function generateHTML(data) {
             zoom: .75; 
           } 
          }
-      </style>`;
+      </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="row wrapper">
+            <div class="photo-header">
+              <img src="${response.avatar_url}" alt="loading" />
+              <h1>Hi!</h1>
+              <h1>My name is ${response.name}</h1>
+              <h2>Currently @....</h2>
+              <p class="links-nav">
+                <a>${response.location}</a>
+                <a href="${response.html_url}" class="nav-link">GitHub</a>
+                <a href="${response.blog}" class="nav-link">Blog</a>
+              </p>
+            </div>
+          </div>
+          <div class="main container">
+            <div class="row" id="#bio">
+              <h3 class="col">Bio:  ${response.bio}</h3>
+            </div>
+            <div class="row">
+              <div class="col card">
+                <h3>Public Repositories</h3>
+                <p>${response.public_repos}</p>
+              </div>
+              <div class="col card">
+                <h3>Followers</h3>
+                <p>${response.followers}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col card">
+                <h3>GitHub Stars</h3>
+                <p>NUmber</p>
+              </div>
+              <div class="col card">
+                <h3>Following</h3>
+                <p>${response.following}</p>
+              </div>
+            </div>
+          </div>
+          <div class="wrapper"></div>
+        </div>
+      </body>
+    </html>`;
 }
 module.exports = {
   generateHTML

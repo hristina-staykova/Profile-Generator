@@ -14,13 +14,13 @@ const questions = [
     name: "color",
     type: "list",
     message: "Choose a color",
-    choices: ["blue", "green", "orange", "gray"]
+    choices: ["blue", "green", "pink", "red"]
   }
 ];
 
-function callback(err) {
+var callback = function(err) {
   if (err) throw err;
-}
+};
 
 function writeToFile(fileName, data) {
   fs.writeFile(fileName, data, callback);
@@ -30,19 +30,14 @@ function writeToFile(fileName, data) {
 function init() {
   inquirer.prompt([questions[0], questions[1]]).then(answers => {
     var username = answers.github_username;
+    console.log(username);
     const GITHUB = `https://api.github.com/users/${username}`;
     axios.get(GITHUB).then(response => {
-      var userUrl = response.data.html_url;
-      var profilePicture = response.data.avatar_url;
-      var followers = parseInt(response.data.followers);
-      var publicRepos = parseInt(response.data.public_repos);
-      var following = parseInt(response.data.following);
-      var location = response.data.location;
-      var userBio = response.data.bio;
-      var userBlog = response.data.blog;
-      console.log(html.generateHTML(answers));
-      let data = html.generateHTML(answers);
-      writeToFile(username + ".html", data);
+      console.log(response);
+      let data = html.generateHTML(answers, response.data);
+      let fileName = username + ".html";
+      writeToFile(fileName, data);
+      // convertHTMLToPDF(fileName, callback);
     });
   });
 }
