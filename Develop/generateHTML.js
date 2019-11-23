@@ -18,10 +18,10 @@ const colors = {
     photoBorderColor: "#FEE24C"
   },
   red: {
-    wrapperBackground: "#DE9967",
-    headerBackground: "#870603",
+    wrapperBackground: "#FECA1F",
+    headerBackground: "#ED3E13",
     headerColor: "white",
-    photoBorderColor: "white"
+    photoBorderColor: "#931E30"
   }
 };
 
@@ -180,14 +180,17 @@ function generateHTML(data, response, starsCount) {
           <div class="row wrapper">
             <div class="photo-header">
               <img src="${response.avatar_url}" alt="loading" />
-              <h1>Hi!</h1>
-              <h1>My name is ${response.name}</h1>
+              <h1>Hi! My name is ${response.name}</h1>
               <h2>Currently @ ${response.company}</h2>
               <p class="links-nav">
-                <a>${response.location}</a
+                <a><i class="fas fa-map-marker-alt"></i> ${response.location}</a
                 >
-                <a href="${response.html_url}" class="nav-link">GitHub</a>
-                <a href="${response.blog}" class="nav-link">Blog</a>
+                <a href="${
+                  response.html_url
+                }" class="nav-link"><i class="fab fa-github-square"></i> GitHub</a>
+                <a href="${
+                  response.blog
+                }" class="nav-link"><i class="fas fa-rss-square"></i> Blog</a>
               </p>
             </div>
           </div>
