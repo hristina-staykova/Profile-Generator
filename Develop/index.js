@@ -18,28 +18,35 @@ const questions = [
   }
 ];
 
-var callback = function(err) {
+var errorFn = function(err) {
   if (err) throw err;
 };
 
-function writeToFile(fileName, data) {
-  fs.writeFile(fileName, data, callback);
-  console.log("The file has been saved!");
+function writeToPDF(data, username) {
+  convertHTMLToPDF(data, pdf => {
+    fs.writeFile(`${username}.pdf`, pdf, errorFn);
+  });
 }
 
-function init() {
-  inquirer.prompt([questions[0], questions[1]]).then(answers => {
-    var username = answers.github_username;
-    console.log(username);
-    const GITHUB = `https://api.github.com/users/${username}`;
-    axios.get(GITHUB).then(response => {
-      console.log(response);
-      let data = html.generateHTML(answers, response.data);
-      let fileName = username + ".html";
-      writeToFile(fileName, data);
-      // convertHTMLToPDF(fileName, callback);
-    });
-  });
+async function init() {
+  const answers = await inquirer.prompt([questions[0], questions[1]]);
+  var username = answers.github_username;
+  const githubUrl = `https://api.github.com/users/${username}`;
+  let response;
+  let starsCount;
+  try {
+    response = await axios.get(githubUrl);
+    let starsList = await axios.get(githubUrl + "/starred");
+    starsCount = starsList.data.length;
+  } catch (e) {
+    if (e.response.status === 404) {
+      console.log("User: '" + username + "' not found");
+      return;
+    }
+    throw e;
+  }
+  let htmlOutput = html.generateHTML(answers, response.data, starsCount);
+  writeToPDF(htmlOutput, username);
 }
 
 init();

@@ -25,7 +25,7 @@ const colors = {
   }
 };
 
-function generateHTML(data, response) {
+function generateHTML(data, response, starsCount) {
   return `<!DOCTYPE html>
 <html lang="en">
    <head>
@@ -107,7 +107,6 @@ function generateHTML(data, response) {
          object-fit: cover;
          margin-top: -75px;
          border: 6px solid ${colors[data.color].photoBorderColor};
-         box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
          }
          .photo-header h1, .photo-header h2 {
          width: 100%;
@@ -159,6 +158,10 @@ function generateHTML(data, response) {
          text-align: center;
          }
 
+         #bottom {
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
          a, a:hover {
          text-decoration: none;
          color: inherit;
@@ -173,21 +176,22 @@ function generateHTML(data, response) {
       </style>
       </head>
       <body>
-        <div class="container">
+        <main>
           <div class="row wrapper">
             <div class="photo-header">
               <img src="${response.avatar_url}" alt="loading" />
               <h1>Hi!</h1>
               <h1>My name is ${response.name}</h1>
-              <h2>Currently @....</h2>
+              <h2>Currently @ ${response.company}</h2>
               <p class="links-nav">
-                <a>${response.location}</a>
+                <a>${response.location}</a
+                >
                 <a href="${response.html_url}" class="nav-link">GitHub</a>
                 <a href="${response.blog}" class="nav-link">Blog</a>
               </p>
             </div>
           </div>
-          <div class="main container">
+          <div class="container">
             <div class="row" id="#bio">
               <h3 class="col">Bio:  ${response.bio}</h3>
             </div>
@@ -204,7 +208,7 @@ function generateHTML(data, response) {
             <div class="row">
               <div class="col card">
                 <h3>GitHub Stars</h3>
-                <p>NUmber</p>
+                <p>${starsCount}</p>
               </div>
               <div class="col card">
                 <h3>Following</h3>
@@ -212,8 +216,8 @@ function generateHTML(data, response) {
               </div>
             </div>
           </div>
-          <div class="wrapper"></div>
-        </div>
+          <div class="wrapper" id="#bottom"></div>
+          </main>
       </body>
     </html>`;
 }
