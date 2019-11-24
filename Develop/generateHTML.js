@@ -158,10 +158,6 @@ function generateHTML(data, response, starsCount) {
          text-align: center;
          }
 
-         #bottom {
-          margin-bottom: 0;
-          padding-bottom: 0;
-        }
          a, a:hover {
          text-decoration: none;
          color: inherit;
@@ -176,7 +172,7 @@ function generateHTML(data, response, starsCount) {
       </style>
       </head>
       <body>
-        <main>
+      <main>
           <div class="row wrapper">
             <div class="photo-header">
               <img src="${response.avatar_url}" alt="loading" />
@@ -218,9 +214,9 @@ function generateHTML(data, response, starsCount) {
                 <p>${response.following}</p>
               </div>
             </div>
-          </div>
-          <div class="wrapper" id="#bottom"></div>
-          </main>
+            </div>
+            </main>
+            <div class="wrapper"></div>
       </body>
     </html>`;
 }

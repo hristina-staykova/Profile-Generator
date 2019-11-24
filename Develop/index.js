@@ -23,9 +23,13 @@ var errorFn = function(err) {
 };
 
 function writeToPDF(data, username) {
-  convertHTMLToPDF(data, pdf => {
-    fs.writeFile(`${username}.pdf`, pdf, errorFn);
-  });
+  convertHTMLToPDF(
+    data,
+    pdf => {
+      fs.writeFile(`${username}.pdf`, pdf, errorFn);
+    },
+    { format: "A4", pageRanges: "1" }
+  );
 }
 
 async function init() {
