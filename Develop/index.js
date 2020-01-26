@@ -20,6 +20,7 @@ const questions = [
 
 var errorFn = function(err) {
   if (err) throw err;
+  console.log("PDF successfuly generated");
 };
 
 function writeToPDF(data, username) {

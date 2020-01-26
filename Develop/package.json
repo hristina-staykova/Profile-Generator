@@ -13,5 +13,8 @@
     "inquirer": "^7.0.0",
     "pdf-puppeteer": "^1.1.9"
   },
+  "scripts": {
+    "start": "node index.js"
+  },
   "description": ""
 }
